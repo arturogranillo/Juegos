@@ -88,7 +88,7 @@ function moveEverything() {
 }
 
 // Draw ball, paddles, and scores
-function draw()
+function draw() {
 context.fill();
 context.font = "30px Arial";
 context.fillStyle = "white";
