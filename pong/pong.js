@@ -24,17 +24,6 @@ canvas.addEventListener("mousemove", function(event) {
     paddle1Y = mousePos.y - (paddleHeight / 2);
 });
 
-// Set up touch listeners for paddle movement on mobile devices
-canvas.addEventListener("touchmove", function(event) {
-    event.preventDefault();
-    var touch = event.touches[0];
-    var mouseEvent = new MouseEvent("mousemove", {
-        clientX: touch.clientX,
-        clientY: touch.clientY
-    });
-    canvas.dispatchEvent(mouseEvent);
-});
-
 // Calculate mouse position on canvas
 function calculateMousePos(event) {
     var rect = canvas.getBoundingClientRect();
@@ -88,13 +77,19 @@ function moveEverything() {
 }
 
 // Draw ball, paddles, and scores
-function draw() {
-context.fill();
-context.font = "30px Arial";
-context.fillStyle = "white";
-context.fillText(player1Score, 100, 100);
-context.fillText(player2Score, canvas.width - 100, 100);
-}
+function drawEverything() {
+    context.fillStyle = "white";
+    context.fillRect(0, 0, canvas.width, canvas.height);
+    context.fillStyle = "black";
+    context.fillRect(0, paddle1Y, paddleWidth, paddleHeight);
+    context.fillRect(canvas.width - paddleWidth, paddle2Y, paddleWidth, paddleHeight);
+    context.beginPath();
+    context.arc(ballX, ballY, 10, 0, Math.PI * 2);
+    context.fill();
+    context.font = "30px Arial";
+    context.fillText(player1Score, 100, 100);
+    context.fillText(player2Score, canvas.width - 100, 100);
+    }
 
 // Main game loop
 setInterval(function() {
